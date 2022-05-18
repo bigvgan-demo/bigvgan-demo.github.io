@@ -27,7 +27,7 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
   <li><h4><b><a href="#lt_other">LibriTTS test-other samples from unseen speakers</a></b><br></h4></li>
   <li><h4><b><a href="#multi_lang">Unseen languages and recording environments</a></b><br></h4></li>
   <li><h4><b><a href="#ablation">Ablation study</a></b><br></h4></li>
-  <li><h4><b><a href="#bonus">Bonus: extreme out-of-distribution example</a></b><br></h4></li>
+  <li><h4><b><a href="#bonus">Bonus: extreme out-of-distribution examples</a></b><br></h4></li>
 </ul>
 <br><br>
 
@@ -536,10 +536,10 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
 
 <br>
 <div>
-  <h3 id="bonus"> Bonus: extreme out-of-distribution example </h3>
+  <h3 id="bonus"> Bonus: extreme out-of-distribution examples </h3>
   <h3 style="color:red">WARNING: EXTREMELY LOUD VOLUME WITH CHAOTIC SOUND!</h3>
 
-  A robustness "stress test" of BigVGAN. BigVGAN is robust to extreme out-of-distribution samples, such as the following electronic music with loud and complex drums, which has not been possible in the literature.
+  A robustness "stress test" of BigVGAN. BigVGAN is robust to extreme out-of-distribution samples, such as a following electronic music with loud drums and complex synthesizers, which has not been possible in the literature.
     <br>
   <table>
     <thead>
@@ -557,6 +557,15 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
       <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/hardcore.wav" type="audio/wav"></audio></td>
     </tr>
     </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/wa.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
     </table><br>
 
     <table>
@@ -573,6 +582,14 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
       <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/hardcore.wav" type="audio/wav"></audio></td>
     </tr>
     </tbody>
+
+      <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/wa.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
     </table><br>
 
 </div>
