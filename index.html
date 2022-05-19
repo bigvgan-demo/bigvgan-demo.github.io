@@ -19,7 +19,7 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
 
 <h2 id="contents">Contents</h2>
 <ul>
-  <li><h4><b><a href="#ood_youtube">Out-of-distribution robustness: YouTube clips and non-speech audios</a></b><br></h4></li>
+  <li><h4><b><a href="#ood_youtube">Out-of-distribution robustness: YouTube clips in-the-wild</a></b><br></h4></li>
   <li><h4><b><a href="#ood_music">Out-of-distribution robustness: MUSDB18-HQ</a></b><br></h4></li>
   <li><h4><b><a href="#lt_clean">LibriTTS test-clean samples from unseen speakers</a></b><br></h4></li>
   <li><h4><b><a href="#lt_other">LibriTTS test-other samples from unseen speakers</a></b><br></h4></li>
@@ -31,9 +31,9 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
 
 <br> </br>
 <div>
-  <h3 id="ood_youtube"> Out-of-distribution robustness: YouTube clips and non-speech audios </h3>
-  BigVGAN exhibits strong zero-shot performance and robustness to out-of-distribution scenarios.
-  BigVGAN is capable of synthesizing non-speech vocalizations or audios, such as laughter, audio effects, and any other in-the-wild audio from YouTube clips.
+  <h3 id="ood_youtube"> Out-of-distribution robustness: YouTube clips in-the-wild </h3>
+  BigVGAN, trained only on LibriTTS, exhibits strong zero-shot performance and robustness to out-of-distribution scenarios.
+  BigVGAN is capable of synthesizing non-speech vocalizations or audios, such as laughter, singing, and any types of in-the-wild audio from YouTube clips.
   <table>
     <thead>
     <tr>
@@ -67,13 +67,7 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
     </tr>
     </tbody>
 
-    <tbody>
-    <tr>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/spooky.wav" type="audio/wav"></audio></td>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/spooky.wav" type="audio/wav"></audio></td>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/spooky.wav" type="audio/wav"></audio></td>
-    </tr>
-    </tbody>
+
 
 
   </table><br>
@@ -106,20 +100,14 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
     </tr>
     </tbody>
 
-    <tbody>
-    <tr>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/spooky.wav" type="audio/wav"></audio></td>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/spooky.wav" type="audio/wav"></audio></td>
-    </tr>
-    </tbody>
-
   </table><br>
 </div>
 
 <br>
 <div>
   <h3 id="ood_music"> Out-of-distribution robustness: MUSDB18-HQ </h3>
-  BigVGAN exhibits strong zero-shot performance and robustness to out-of-distribution scenarios. BigVGAN is capable of synthesizing a wide range of singing voice, music, and instrumental audio which are unseen during training.
+  BigVGAN, trained only on LibriTTS, exhibits strong zero-shot performance and robustness to out-of-distribution scenarios.
+  BigVGAN is capable of synthesizing a wide range of singing voice, music, and instrumental audio which are unseen during training.
 
   <table>
     <thead>
@@ -522,9 +510,9 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
 
     <tbody>
     <tr>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/spooky.wav" type="audio/wav"></audio></td>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/mrd_snake/spooky.wav" type="audio/wav"></audio></td>
-      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan_mrd/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/mrd_snake/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan_mrd/noisytedx1.wav" type="audio/wav"></audio></td>
     </tr>
     </tbody>
 
@@ -535,9 +523,9 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
 <br>
 <div>
   <h3 id="bonus"> Bonus: extreme out-of-distribution examples </h3>
-  <h3 style="color:red">WARNING: EXTREMELY LOUD VOLUME WITH CHAOTIC SOUND!</h3>
+  <h3 style="color:red">WARNING: SAMPLES MAY HAVE EXTREMELY LOUD VOLUME WITH CHAOTIC SOUND!</h3>
 
-  A robustness "stress test" of BigVGAN. BigVGAN is robust to extreme out-of-distribution samples, such as a following electronic music with loud drums and complex synthesizers, which has not been possible in the literature.
+  A robustness "stress test" of BigVGAN. BigVGAN is robust to extreme out-of-distribution samples, such as audio effects and electronic music with loud drums and complex synthesizers, which has not been possible in the literature.
     <br>
   <table>
     <thead>
@@ -547,6 +535,14 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
       <th>UnivNet-c32 (train-clean-360)</th>
     </tr>
     </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/spooky.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
 
     <tbody>
     <tr>
@@ -573,6 +569,13 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
       <th>BigVGAN-base</th>
     </tr>
     </thead>
+
+      <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/spooky.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
 
     <tbody>
     <tr>
