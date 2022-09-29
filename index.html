@@ -1,0 +1,698 @@
+<html>
+<head>
+  <meta charvctk_set="UTF-8">
+  <title>Sound demos for "BigVGAN: A Universal Neural Vocoder with Large-Scale Training"</title>
+</head>
+<h2>Sound demos for "BigVGAN: A Universal Neural Vocoder with Large-Scale Training"</h2>
+
+<body>
+
+Despite recent progress in generative adversarial network (GAN)-based vocoders, where the model generates raw waveform conditioned on mel spectrogram, it is still challenging to synthesize high-fidelity audio for numerous speakers across varied recording environments.
+In this work, we present BigVGAN, a universal vocoder that generalizes well under various unseen conditions in zero-shot setting.
+We introduce periodic nonlinearities and anti-aliased representation into the generator, which brings the desired inductive bias for waveform synthesis and significantly improves audio quality.
+Based on our improved generator and the state-of-the-art discriminators, we train our GAN vocoder at the largest scale up to 112M parameters, which is unprecedented in the literature.
+In particular, we identify and address the instabilities specific to such scale, while maintaining high-fidelity output without over-regularization.
+Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-of-distribution samples, including unseen speakers, novel languages, singing voices, music and instrumental audio in varied (even noisy) recording environments.
+
+<h3> </h3>
+
+
+<h2 id="contents">Contents</h2>
+<ul>
+  <li><h4><b><a href="#ood_youtube">Out-of-distribution robustness: YouTube clips in-the-wild</a></b><br></h4></li>
+  <li><h4><b><a href="#ood_music">Out-of-distribution robustness: MUSDB18-HQ</a></b><br></h4></li>
+  <li><h4><b><a href="#lt_clean">LibriTTS test-clean samples from unseen speakers</a></b><br></h4></li>
+  <li><h4><b><a href="#lt_other">LibriTTS test-other samples from unseen speakers</a></b><br></h4></li>
+  <li><h4><b><a href="#multi_lang">Unseen languages and recording environments</a></b><br></h4></li>
+  <li><h4><b><a href="#ablation">Ablation study: methods</a></b><br></h4></li>
+  <li><h4><b><a href="#ablation_size">Ablation study: model capacity</a></b><br></h4></li>
+  <li><h4><b><a href="#bonus">Bonus: extreme out-of-distribution examples</a></b><br></h4></li>
+</ul>
+<br><br>
+
+<br> </br>
+<div>
+  <h3 id="ood_youtube"> Out-of-distribution robustness: YouTube clips in-the-wild </h3>
+  BigVGAN, trained only on LibriTTS, exhibits strong zero-shot performance and robustness to out-of-distribution scenarios.
+  BigVGAN is capable of synthesizing non-speech vocalizations or audios, such as laughter, singing, and any types of in-the-wild audio from YouTube clips.
+  <table>
+    <thead>
+    <tr>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (V1)</th>
+      <th>UnivNet-c32 (train-clean-360)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/celeb1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/celeb1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/celeb1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/queen.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/queen.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/queen.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+        <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/celeb2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/celeb2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/celeb2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/media1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/media1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/media1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+
+
+
+  </table><br>
+  <table>
+    <thead>
+    <tr>
+      <th>BigVGAN</th>
+      <th>BigVGAN-base</th>
+      <th>SC-WaveRNN</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/celeb1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/celeb1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/celeb1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/queen.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/queen.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/queen.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/celeb2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/celeb2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/celeb2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/media1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/media1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/media1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table><br>
+</div>
+
+<br>
+<div>
+  <h3 id="ood_music"> Out-of-distribution robustness: MUSDB18-HQ </h3>
+  BigVGAN, trained only on LibriTTS, exhibits strong zero-shot performance and robustness to out-of-distribution scenarios.
+  BigVGAN is capable of synthesizing a wide range of singing voice, music, and instrumental audio which are unseen during training.
+
+  <table>
+    <thead>
+    <tr>
+      <th>Types</th>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (V1)</th>
+      <th>UnivNet-c32 (train-clean-360)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <th>Others (Guitars)</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/guitar.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Vocal</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/vocal1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/vocal1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/vocal1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Drums</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/drum1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/drum1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/drum1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Bass</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/bass.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/bass.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/bass.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Mixture</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/music.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/music.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/music.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Mixture</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/dance.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/dance.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/dance.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+
+  </table><br>
+  <table>
+    <thead>
+    <tr>
+      <th>Types</th>
+      <th>BigVGAN</th>
+      <th>BigVGAN-base</th>
+      <th>SC-WaveRNN</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>Others (Guitars)</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/guitar.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Vocal</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/vocal1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/vocal1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/vocal1.wav" type="audio/wav"></audio></td>
+
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Drums</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/drum1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/drum1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/drum1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Bass</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/bass.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/bass.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/bass.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Mixture</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/music.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/music.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/music.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>Mixture</th>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/dance.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/dance.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/dance.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+
+  </table><br>
+
+
+</div>
+
+<br>
+<div>
+  <h3 id="lt_clean">LibriTTS test-clean samples from unseen speakers</h3>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (V1)</th>
+      <th>UnivNet-c32 (train-clean-360)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/ltclean1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/ltclean1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/ltclean1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/ltclean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/ltclean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/ltclean2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/ltclean3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/ltclean3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/ltclean3.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table><br>
+  <table>
+    <thead>
+    <tr>
+      <th>BigVGAN</th>
+      <th>BigVGAN-base</th>
+      <th>SC-WaveRNN</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/ltclean1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/ltclean1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/ltclean1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/ltclean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/ltclean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/ltclean2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/ltclean3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/ltclean3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/ltclean3.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table><br>
+</div>
+
+<br>
+<div>
+  <h3 id="lt_other"> LibriTTS test-other samples from unseen speakers </h3>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (V1)</th>
+      <th>UnivNet-c32 (train-clean-360)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/ltother1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/ltother1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/ltother1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/ltother2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/ltother2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/ltother2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/ltother3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/ltother3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/ltother3.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table><br>
+  <table>
+    <thead>
+    <tr>
+      <th>BigVGAN</th>
+      <th>BigVGAN-base</th>
+      <th>SC-WaveRNN</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/ltother1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/ltother1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/ltother1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/ltother2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/ltother2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/ltother2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/ltother3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/ltother3.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/ltother3.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table><br>
+</div>
+
+<br>
+<div>
+  <h3 id="multi_lang"> Unseen languages and recording environments</h3>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (V1)</th>
+      <th>UnivNet-c32 (train-clean-360)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/noisytedx1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/noisytedx2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/noisytedx2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/noisytedx2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/korean.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/korean.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/korean.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+        <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/korean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/korean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/korean2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table><br>
+  <table>
+    <thead>
+    <tr>
+      <th>BigVGAN</th>
+      <th>BigVGAN-base</th>
+      <th>SC-WaveRNN</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/noisytedx1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/noisytedx2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/noisytedx2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/noisytedx2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/korean.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/korean.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/korean.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/korean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/korean2.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/korean2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+
+  </table><br>
+
+
+
+</div>
+
+
+
+
+
+<br>
+<div>
+  <h3 id="ablation"> Ablation study: methods </h3>
+  Ablation models based on BigVGAN-base by disabling anti-aliased filter or snake activation function.
+  <table>
+    <thead>
+    <tr>
+      <th>BigVGAN-base</th>
+      <th>(w/o filter)</th>
+      <th>(w/o filter&snake)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/mrd_snake/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan_mrd/guitar.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/drum1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/mrd_snake/drum1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan_mrd/drum1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/celeb1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/mrd_snake/celeb1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan_mrd/celeb1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/mrd_snake/noisytedx1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan_mrd/noisytedx1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+
+  </table>
+</div>
+
+
+<br>
+<div>
+  <h3 id="ablation_size"> Ablation study: model capacity </h3>
+  Ablation model of BigVGAN (HiFi-GAN (112M)), where the model capacity is maximized to the same 112M parameters and the architectural improvements are disabled.
+  <br>
+  Simply increasing the model size is not sufficient to achieve BigVGAN's robustness to out-of-distribution data. HiFi-GAN (112M) exhibits similar types of artifact to the original HiFi-GAN (V1).
+  <table>
+    <thead>
+    <tr>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (112M)</th>
+      <th>BigVGAN (112M)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bighifigan/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/spooky.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/vocal1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bighifigan/vocal1.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/vocal1.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bighifigan/guitar.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/guitar.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/music.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bighifigan/music.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/music.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<br>
+<div>
+  <h3 id="bonus"> Bonus: extreme out-of-distribution examples </h3>
+  <h3 style="color:red">WARNING: SAMPLES MAY HAVE EXTREMELY LOUD VOLUME WITH CHAOTIC SOUND!</h3>
+
+  A robustness "stress test" of BigVGAN. BigVGAN is robust to extreme out-of-distribution samples, such as audio effects and electronic music with loud drums and complex synthesizers, which has not been possible in the literature.
+    <br>
+  <table>
+    <thead>
+    <tr>
+      <th>Ground-Truth</th>
+      <th>HiFi-GAN (V1)</th>
+      <th>UnivNet-c32 (train-clean-360)</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/spooky.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/hardcore.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/hardcore.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/hardcore.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/gt/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/hifigan/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/univnet/wa.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    </table><br>
+
+    <table>
+    <thead>
+    <tr>
+      <th>BigVGAN</th>
+      <th>BigVGAN-base</th>
+      <th>SC-WaveRNN</th>
+    </tr>
+    </thead>
+
+      <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/spooky.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/spooky.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/hardcore.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/hardcore.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/hardcore.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+      <tbody>
+    <tr>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/bigvgan-base/wa.wav" type="audio/wav"></audio></td>
+      <td><audio controls style="width: 225px; height: 50px"><source src="samples/sc-wavernn/wa.wav" type="audio/wav"></audio></td>
+    </tr>
+    </tbody>
+
+    </table><br>
+
+</div>
+
+
+</body>
+</html>
+
