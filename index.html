@@ -1,18 +1,30 @@
 <html>
 <head>
   <meta charvctk_set="UTF-8">
-  <title>Sound demos for "BigVGAN: A Universal Neural Vocoder with Large-Scale Training"</title>
+  <title>Sound demos for "BigVGAN: A Universal Neural Vocoder with Large-Scale Training" (ICLR 2023)</title>
 </head>
 <h2>Sound demos for "BigVGAN: A Universal Neural Vocoder with Large-Scale Training"</h2>
 
+<h3>Venue: ICLR 2023 <a href="https://openreview.net/forum?id=iTtGCMDEzS_">Link to OpenReview</a></h3>
+
+<h3>Authors:
+<a href="mailto:tkdrlf9202@snu.ac.kr">Sang-gil Lee</a>,
+<a href="mailto:wping@nvidia.com">Wei Ping</a>,
+<a href="mailto:bginsburg@nvidia.com">Boris Ginsburg</a>,
+<a href="mailto:bcatanzaro@nvidia.com">Bryan Catanzaro</a>,
+<a href="mailto:sryoon@snu.ac.kr">Sungroh Yoon</a>
+</h3>
+
+<h3><a href="https://arxiv.org/abs/2206.04658">Link to Paper (arXiv)</a> &ensp; <a href="https://github.com/NVIDIA/BigVGAN">Link to Code</a></h3>
+
+
 <body>
 
-Despite recent progress in generative adversarial network (GAN)-based vocoders, where the model generates raw waveform conditioned on mel spectrogram, it is still challenging to synthesize high-fidelity audio for numerous speakers across varied recording environments.
-In this work, we present BigVGAN, a universal vocoder that generalizes well under various unseen conditions in zero-shot setting.
-We introduce periodic nonlinearities and anti-aliased representation into the generator, which brings the desired inductive bias for waveform synthesis and significantly improves audio quality.
-Based on our improved generator and the state-of-the-art discriminators, we train our GAN vocoder at the largest scale up to 112M parameters, which is unprecedented in the literature.
-In particular, we identify and address the instabilities specific to such scale, while maintaining high-fidelity output without over-regularization.
-Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-of-distribution samples, including unseen speakers, novel languages, singing voices, music and instrumental audio in varied (even noisy) recording environments.
+Despite recent progress in generative adversarial network (GAN)-based vocoders, where the model generates raw waveform conditioned on acoustic features, it is challenging to synthesize high-fidelity audio for numerous speakers across various recording environments.
+In this work, we present BigVGAN, a universal vocoder that generalizes well for various out-of-distribution scenarios without fine-tuning.
+We introduce periodic activation function and anti-aliased representation into the GAN generator, which brings the desired inductive bias for audio synthesis and significantly improves audio quality.
+In addition, we train our GAN vocoder at the largest scale up to 112M parameters, which is unprecedented in the literature. We identify and address the failure modes in large-scale GAN training for audio, while maintaining high-fidelity output without over-regularization.
+Our BigVGAN, trained only on clean speech (LibriTTS), achieves the state-of-the-art performance for various zero-shot (out-of-distribution) conditions, including unseen speakers, languages, recording environments, singing voices, music,  and instrumental audio.
 
 <h3> </h3>
 
@@ -28,9 +40,8 @@ Our BigVGAN achieves the state-of-the-art zero-shot performance for various out-
   <li><h4><b><a href="#ablation_size">Ablation study: model capacity</a></b><br></h4></li>
   <li><h4><b><a href="#bonus">Bonus: extreme out-of-distribution examples</a></b><br></h4></li>
 </ul>
-<br><br>
+<br>
 
-<br> </br>
 <div>
   <h3 id="ood_youtube"> Out-of-distribution robustness: YouTube clips in-the-wild </h3>
   BigVGAN, trained only on LibriTTS, exhibits strong zero-shot performance and robustness to out-of-distribution scenarios.
